@@ -14,7 +14,11 @@ module Quicken
       else
         help
       end
+    end
 
+    desc 'init', 'Initialize a new project'
+    def init
+      puts 'init'
     end
 
     default_command :default
