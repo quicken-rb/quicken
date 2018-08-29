@@ -1,5 +1,5 @@
 require 'simple_command'
-require 'quicken/core/autoloader'
+require 'quicken/autoloader'
 
 module Quicken
   module Command
@@ -17,9 +17,8 @@ module Quicken
         @runner.run
       rescue Errno::ENOENT => e
         errors.add(:file_not_found, e.message)
-      rescue StandardError => e
-        errors.add(:unknown_error, e.class.name)
-        errors.add(:unknown_error, e.message)
+      rescue Quicken::Error => e
+        errors.add(e.error_name, e.message)
       end
     end
   end

@@ -1,5 +1,15 @@
 require "bundler/setup"
-require "qk"
+require "quicken"
+require "quicken/autoloader"
+require 'logger'
+require 'pry'
+
+
+LOGGER = Logger.new(STDOUT)
+LOGGER.level = Logger::WARN
+LOGGER.formatter = proc { |severity, datetime, progname, msg|
+  "#{severity} [#{datetime}] - [#{progname.upcase}] #{msg}\n"
+}
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

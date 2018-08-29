@@ -12,14 +12,24 @@ require 'quicken/commands/autoloader'
 
 LOGGER = Logger.new(STDOUT)
 LOGGER.level = Logger::WARN
+LOGGER.formatter = proc { |severity, datetime, progname, msg|
+  "#{severity} [#{datetime}] - [#{progname.upcase}] #{msg}\n"
+}
 
 module Quicken
   class App < Thor
+    class_option :debug, type: :boolean, aliases: [:d]
+
     option :version, type: :boolean, aliases: [:v]
     no_commands do
-      def default
+      def version
         puts "Quicken #{Quicken::VERSION}"
       end
+    end
+
+    def initialize(*args)
+      super
+      LOGGER.level = Logger::DEBUG if options.debug?
     end
 
     desc 'init', 'Initialize a new recipe'

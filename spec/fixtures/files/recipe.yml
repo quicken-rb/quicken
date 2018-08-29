@@ -1,13 +1,11 @@
-# - readme:
-    # project_name: Test
-    # author_name: Test
-    # author_email: test@example.com
-    # description: This is a test
+- readme:
+    project_name: Test
+    author_name: Test
+    author_email: test@example.com
+    description: This is a test
 
-- echo: Hello Quicken!
-- echo: I am a plugin!
-- echo: This is great!
-
+- echo: 'What is your favourite color?'
+    
 # - git:
 #     remote:
 #       - origin: https://example.com/repo.git

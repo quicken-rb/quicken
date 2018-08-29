@@ -6,7 +6,7 @@ module Quicken
       @name = name
       @args = args
       require "quicken/plugins/#{name}"
-      @class = "Quicken::#{name.camelize}".constantize
+      @class = "Quicken::Plugins::#{name.camelize}".constantize
     end
   end
 end
