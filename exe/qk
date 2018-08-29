@@ -4,6 +4,46 @@
 lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
+require 'thor'
+require 'logger'
+
 require 'quicken'
+require 'quicken/commands/autoloader'
+
+LOGGER = Logger.new(STDOUT)
+LOGGER.level = Logger::WARN
+
+module Quicken
+  class App < Thor
+    option :version, type: :boolean, aliases: [:v]
+    no_commands do
+      def default
+        puts "Quicken #{Quicken::VERSION}"
+      end
+    end
+
+    desc 'init', 'Initialize a new recipe'
+    def init
+      puts 'init'
+    end
+
+    option :recipe, type: :string, aliases: [:f]
+    desc 'create', 'Create a new project based on a recipe'
+    def create
+      recipe = options.recipe || './recipe.yml'
+      cmd = Quicken::Command::Run.call recipe
+      handle_errors cmd.errors unless cmd.success?
+    end
+
+    default_command :help
+
+    private
+
+    def handle_errors errors
+      errors.each { |error| LOGGER.error(error[0]) { error[1] } }
+    end
+  end
+end
+
 
 Quicken::App.start ARGV
