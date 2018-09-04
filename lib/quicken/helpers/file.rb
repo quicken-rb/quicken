@@ -2,6 +2,7 @@ module Quicken
   module Helpers
     module File
       def read_file filename
+        File.read(filename)
       end
 
       def write_file filename, content, force:false
@@ -14,3 +15,4 @@ module Quicken
     end
   end
 end
+
