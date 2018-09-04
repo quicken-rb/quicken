@@ -214,6 +214,11 @@ module Quicken
         end
       end
 
+      def lookup_color(color)
+        return color unless color.is_a?(Symbol)
+        self.class.const_get(color.to_s.upcase)
+      end
+
       def can_display_colors?
         stdout.tty?
       end
@@ -230,7 +235,14 @@ module Quicken
             output_diff_line(diff)
           end
         else
-          super
+          diff_cmd = ENV["THOR_DIFF"] || ENV["RAILS_DIFF"] || "diff -u"
+
+          require "tempfile"
+          Tempfile.open(File.basename(destination), File.dirname(destination)) do |temp|
+            temp.write content
+            temp.rewind
+            system %(#{diff_cmd} "#{destination}" "#{temp.path}")
+          end
         end
       end
 
