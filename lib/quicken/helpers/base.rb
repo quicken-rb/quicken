@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # THis is a porting of Thor::Shell::Basic
 # rewritten as a module that can be included by
 # plugins
@@ -14,7 +16,7 @@ module Quicken
       # ==== Example
       # say("I know you knew that.")
       #
-      def say(message = "", color = nil, force_new_line = (message.to_s !~ /( |\t)\Z/))
+      def say message = '', color = nil, force_new_line = (message.to_s !~ /( |\t)\Z/)
         buffer = prepare_message(message, *color)
         buffer << "\n" if force_new_line && !message.to_s.end_with?("\n")
 
@@ -52,7 +54,7 @@ module Quicken
       #
       # ask("Where should the file be saved?", :path => true)
       #
-      def ask(statement, *args)
+      def ask statement, *args
         options = args.last.is_a?(Hash) ? args.pop : {}
         color = args.first
 
@@ -68,9 +70,9 @@ module Quicken
       # in log_status, avoiding the message from being shown. If a Symbol is
       # given in log_status, it's used as the color.
       #
-      def say_status(status, message, log_status = true)
+      def say_status status, message, log_status = true
         return if quiet? || log_status == false
-        spaces = "  " * (padding + 1)
+        spaces = '  ' * (padding + 1)
         color  = log_status.is_a?(Symbol) ? log_status : :green
 
         status = status.to_s.rjust(12)
@@ -86,15 +88,15 @@ module Quicken
       # Make a question the to user and returns true if the user replies "y" or
       # "yes".
       #
-      def yes?(statement, color = nil)
-        !!(ask(statement, color, :add_to_history => false) =~ is?(:yes))
+      def yes? statement, color = nil
+        (ask(statement, color, add_to_history: false) =~ is?(:yes))
       end
 
       # Make a question the to user and returns true if the user replies "n" or
       # "no".
       #
-      def no?(statement, color = nil)
-        !!(ask(statement, color, :add_to_history => false) =~ is?(:no))
+      def no? statement, color = nil
+        (ask(statement, color, add_to_history: false) =~ is?(:no))
       end
 
       # Prints values in columns
@@ -102,7 +104,7 @@ module Quicken
       # ==== Parameters
       # Array[String, String, ...]
       #
-      def print_in_columns(array)
+      def print_in_columns array
         return if array.empty?
         colwidth = (array.map { |el| el.to_s.size }.max || 0) + 2
         array.each_with_index do |value, index|
@@ -114,17 +116,18 @@ module Quicken
           end
         end
       end
+
       protected
 
-      def prepare_message(message, *color)
-        spaces = "  " * padding
+      def prepare_message message, *color
+        spaces = '  ' * padding
         spaces + set_color(message.to_s, *color)
       end
 
-       # Apply color to the given string with optional bold. Disabled in the
+      # Apply color to the given string with optional bold. Disabled in the
       # Thor::Shell::Basic class.
       #
-      def set_color(string, *) #:nodoc:
+      def set_color(string, *)
         string
       end
 
@@ -136,7 +139,7 @@ module Quicken
         $stderr
       end
 
-      def is?(value) #:nodoc:
+      def is? value #:nodoc:
         value = value.to_s
 
         if value.size == 1
@@ -145,9 +148,10 @@ module Quicken
           /\A(#{value}|#{value[0, 1]})\z/i
         end
       end
-      def ask_simply(statement, color, options)
+
+      def ask_simply statement, color, options
         default = options[:default]
-        message = [statement, ("(#{default})" if default), nil].uniq.join(" ")
+        message = [statement, ("(#{default})" if default), nil].uniq.join(' ')
         message = prepare_message(message, *color)
         result = Thor::LineEditor.readline(message, options)
 
@@ -155,23 +159,27 @@ module Quicken
 
         result = result.strip
 
-        if default && result == ""
+        if default && result == ''
           default
         else
           result
         end
       end
 
-      def ask_filtered(statement, color, options)
+      def ask_filtered statement, color, options
         answer_set = options[:limited_to]
         correct_answer = nil
         until correct_answer
-          answers = answer_set.join(", ")
+          answers = answer_set.join(', ')
           answer = ask_simply("#{statement} [#{answers}]", color, options)
           correct_answer = answer_set.include?(answer) ? answer : nil
           say("Your response must be one of: [#{answers}]. Please try again.") unless correct_answer
         end
         correct_answer
+      end
+
+      def die message
+        abort "ABORT: #{message}"
       end
     end
   end

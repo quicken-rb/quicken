@@ -3,9 +3,11 @@
     author_name: Test
     author_email: test@example.com
     description: This is a test
+    force: true
+
+
+- git:
+    remote:
+    - origin: https://example.com/repo.git
 
 - echo: 'What is your favourite color?'
-    
-# - git:
-#     remote:
-#       - origin: https://example.com/repo.git

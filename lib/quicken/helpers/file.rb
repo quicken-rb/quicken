@@ -4,12 +4,12 @@ module Quicken
       def read_file filename
       end
 
-      def write_file filename, content
-        return :file_exists if ::File.exist?(filename)
+      def write_file filename, content, force:false
+        return :file_exists if ::File.exist?(filename) && !force
         file = ::File.new(filename, 'w')
         file.write content
         file.close
-        return :file_written
+        :file_written
       end
     end
   end

@@ -1,6 +1,5 @@
 require 'erb'
 require 'ostruct'
-require 'quicken/error'
 
 module Quicken
   module Helpers
