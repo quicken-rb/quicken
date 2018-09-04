@@ -1,13 +1,14 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-lib = File.expand_path('../../lib', __FILE__)
+lib = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'thor'
 require 'logger'
 
 require 'quicken'
+require 'quicken/cli/init'
 require 'quicken/commands/autoloader'
 
 LOGGER = Logger.new(STDOUT)
@@ -27,21 +28,18 @@ module Quicken
       end
     end
 
-    def initialize(*args)
+    def initialize *args
       super
       LOGGER.level = Logger::DEBUG if options.debug?
     end
 
-    desc 'init', 'Initialize a new recipe'
-    def init
-      puts 'init'
-    end
+    register Quicken::CLI::Init, :init, 'init', 'Initialize a new recipe'
 
     option :recipe, type: :string, aliases: [:f]
     desc 'create', 'Create a new project based on a recipe'
     def create
       recipe = options.recipe || './recipe.yml'
-      cmd = Quicken::Command::Run.call recipe
+      cmd = Quicken::Commands::Run.call recipe
       handle_errors cmd.errors unless cmd.success?
     end
 
@@ -54,6 +52,5 @@ module Quicken
     end
   end
 end
-
 
 Quicken::App.start ARGV

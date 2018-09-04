@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Quicken is a software project scaffolder written in Ruby. It allows to create projects based on a "recipe" that defines the language, needed tools (build tools like Maven, Gradle or SCons, VCSs like Git or Mercurial), license and other parameters. It uses templates to setup files.
 
 '
-  spec.homepage      = 'https://github.com/matteojoliveau/quicken'
+  spec.homepage      = 'https://github.com/quicken-rb/quicken'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.

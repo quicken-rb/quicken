@@ -36,7 +36,7 @@ module Quicken
 
       DEFAULT = <<~ERB
         # <%= project_name %>
-        ### by <%= author_name %> <<%= author_email %>>
+        ### by <%= author_name %> <%= "<\#{author_email}>" if author_email.present? %>
         ---
         <%= description %>
       ERB
