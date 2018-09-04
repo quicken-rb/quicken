@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'simple_command'
-require 'quicken/autoloader'
+require 'quicken'
 
 module Quicken
-  module Command
+  module Commands
     class Run
       prepend SimpleCommand
 

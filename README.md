@@ -43,7 +43,7 @@ The most important ones are:
 - `qk init` Initialize a new `recipe.yml` file in the current directory with a base template.  
 Pass the `-e` flag to create an empty file
 
-- `qk init plugin [NAME]` Initialize a new project for a Quicken plugin in a new directory called *NAME* under the current folder.
+- `qk init plugin [NAME]` Initialize a new project for a Quicken plugin in a new directory called `quicken-NAME` under the current folder.
 
 - `qk create` Create a new project in the current directory using the default recipe file, which is looked for in the 
 directory itself as `recipe.yml`.  
