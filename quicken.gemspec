@@ -5,21 +5,20 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'quicken/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'quicken'
+  spec.name          = 'quicken-ruby'
   spec.version       = Quicken::VERSION
   spec.authors       = ['Matteo Joliveau']
   spec.email         = ['matteojoliveau@gmail.com']
 
   spec.summary       = 'Stimulate your development! Quicken is a command line tool to generate software projects based on clear, repeatable recipes'
   spec.description   = 'Quicken is a software project scaffolder written in Ruby. It allows to create projects based on a "recipe" that defines the language, needed tools (build tools like Maven, Gradle or SCons, VCSs like Git or Mercurial), license and other parameters. It uses templates to setup files.
-
 '
   spec.homepage      = 'https://github.com/quicken-rb/quicken'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata['allowed_push_host'] = 'https://rubygems.org'
   else
     raise 'RubyGems 2.0 or newer is required to protect against ' \
       'public gem pushes.'

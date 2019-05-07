@@ -31,7 +31,7 @@ Table of Contents
 
 Install it via **RubyGems**
 
-    $ gem install quicken
+    $ gem install quicken-ruby
 
 ## Usage
 
